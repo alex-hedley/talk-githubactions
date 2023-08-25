@@ -12,7 +12,7 @@
 
 		<link rel="canonical" href="https://alex-hedley.github.io/talk-git" />
 		<link rel="icon" href="favicon.ico" />
-		
+
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
 		<link rel="stylesheet" href="dist/theme/black.css" id="theme">
@@ -24,10 +24,13 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				
+
 				<!-- Slide -->
 				<section>
-					<a href="https://alex-hedley.github.io">
+					<a href="https://github.com/actions" target="_blank">
+						<img src="images/GitHubActions.png" alt="GitHub Actions" style="height: 180px; margin: 0 auto 4rem auto; background: transparent;">
+					</a>
+					<a href="https://alex-hedley.github.io" target="_blank">
 						<img src="images/AlexHedley.jpg" alt="Alex Hedley" style="height: 180px; margin: 0 auto 4rem auto; background: transparent;">
 					</a>
 					<h3>GitHub Actions</h3>
@@ -41,9 +44,159 @@
 
 				<!-- Slide -->
 				<section>
+					<h2>About</h2>
+					<h3>Automate your workflow from idea to production</h3>
+					<p>GitHub Actions makes it easy to automate all your software workflows, now with world-class CI/CD. Build, test, and deploy your code right from GitHub. Make code reviews, branch management, and issue triaging work the way you want.</p>
+				</section>
+
+				<!-- Slide -->
+				<section>
+					<h2>About</h2>
+					<h3>Run a workflow on any GitHub event</h3>
+					<p>Kick off workflows with GitHub events like push, issue creation, or a new release. Combine and configure actions for the services you use, built and maintained by the community.</p>
+					<p>Whether you want to build a container, deploy a web service, or automate welcoming new users to your open source projects—there's an action for that. Pair GitHub Packages with Actions to simplify package management, including version updates, fast distribution with our global CDN, and dependency resolution, using your existing GITHUB_TOKEN.</p>
+				</section>
+
+				<!-- Slide -->
+				<section>
+					<h2>YAML</h2>
+					<h3><code>name</code></h3>
+					<pre><code class="hljs yaml" data-trim data-line-numbers data-noescape>
+					# Simple workflow for deploying static content to GitHub Pages
+					name: Deploy static content to Pages
+					</code></pre>
+				</section>
+
+				<!-- Slide -->
+				<section>
+					<h2>YAML</h2>
+					<h3><code>on</code></h3>
+					<pre><code class="hljs yaml" data-trim data-line-numbers data-noescape>
+					on:
+						# Runs on pushes targeting the default branch
+						push:
+						  branches: ["main"]
+						  paths: src/**
+
+						# Allows you to run this workflow manually from the Actions tab
+						workflow_dispatch:
+					</code></pre>
+				</section>
+
+				<!-- Slide -->
+				<section>
+					<h2>YAML</h2>
+					<h3><code>permissions</code></h3>
+					<pre><code class="hljs yaml" data-trim data-line-numbers data-noescape>
+					# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+					permissions:
+					  contents: read
+					  pages: write
+					  id-token: write
+					</code></pre>
+				</section>
+
+				<!-- Slide -->
+				<section>
+					<h2>YAML</h2>
+					<h3><code>jobs</code></h3>
+					<pre><code class="hljs yaml" data-trim data-line-numbers data-noescape>
+						jobs:
+					</code></pre>
+					<p>This is a list of items.</p>
+				</section>
+
+				<!-- Slide -->
+				<section>
+					<h2>YAML</h2>
+					<h3>Job(s)</h3>
+					<pre><code class="hljs yaml" data-trim data-line-numbers data-noescape>
+						# Single deploy job since we're just deploying
+						deploy:
+						  runs-on: ubuntu-latest
+						  steps:
+					</code></pre>
+					<p><code>deploy:</code> is the name of the job, change this to whatever you want.</p>
+					<p><code>runs-on:</code> can be windows, linux or mac (or a custom image)</p>
+				</section>
+
+				<!-- Slide -->
+				<section>
+					<h2>YAML</h2>
+					<h3><code>steps</code></h3>
+					<pre><code class="hljs yaml" data-trim data-line-numbers data-noescape>
+						steps:
+						  - name: Checkout
+						    uses: actions/checkout@v3
+					</code></pre>
+					<p>These are where you can use the different GitHub Actions.</p>
+				</section>
+
+				<!-- Slide -->
+				<section>
+					<h2>YAML</h2>
+					<h3><code>run</code> task</h3>
+					<pre><code class="hljs yaml" data-trim data-line-numbers data-noescape>
+						# copy index.html to 404.html to serve the same file when a file is not found
+						- name: copy index.html to 404.html
+						  run: cp release/wwwroot/index.html release/wwwroot/404.html
+					</code></pre>
+					<p>You can also just <code>run</code> a command as if you were in the terminal.</p>
+				</section>
+
+				<!-- Slide -->
+				<section data-visibility="hidden">
+					<h2>YAML</h2>
+					<h3><code>workflow_run</code> task</h3>
+					<pre><code class="hljs yaml" data-trim data-line-numbers data-noescape>
+					on:
+						# Only trigger, when the build workflow succeeded
+						workflow_run:
+						  workflows: ["Build / Test (with Reports)"]
+						  types:
+							- completed
+					</code></pre>
+					<p>This means you can trigger a workflow job when another workflow finishes.</p>
+				</section>
+
+				<!-- Slide -->
+				<section>
+					<h2>Todo</h2>
+					<ul>
+						<li><code>workflow_run</code></li>
+						<li><code>needs</code></li>
+						<li>relative files</li>
+					</ul>
+
+					<!-- <aside class="notes">
+						<p></p>
+					</aside> -->
+				</section>
+
+				<!-- Slide -->
+				<section>
+					<h2>Blog Posts</h2>
+					<ul>
+						<li><a href="https://alex-hedley.github.io/blog/posts/github-actions-comment" target="_blank">GitHub Actions Comment</a></li>
+						<li><a href="https://alex-hedley.github.io/blog/posts/github-actions-branches" target="_blank">GitHub Actions Branches</a></li>
+						<li><a href="https://alex-hedley.github.io/blog/posts/github-actions-request" target="_blank">GitHub Actions Request</a></li>
+					</ul>
+				</section>
+
+				<!-- Slide -->
+				<section>
+					<h2>Alternatives</h2>
+					<ul>
+						<li><a href="https://github.com/typesafegithub/github-workflows-kt" target="_blank">github-workflows-kt</a> is a tool for creating GitHub Actions workflows in a type-safe script, helping you to build robust workflows for your GitHub projects without mistakes, with pleasure, in Kotlin.</li>
+					</ul>
+				</section>
+
+				<!-- Slide -->
+				<section>
 					<h2>Links</h2>
 					<ul>
-						<li><a href="https://github.com/features/actions" target="_blank">GitHub Actions</a></li>
+						<li><a href="https://github.com/features/actions" target="_blank">GitHub Actions (Feature)</a></li>
+						<li><a href="https://github.com/actions" target="_blank">GitHub Actions</a></li>
 						<li><a href="https://github.com" target="_blank">GitHub</a></li>
 					</ul>
 				</section>
